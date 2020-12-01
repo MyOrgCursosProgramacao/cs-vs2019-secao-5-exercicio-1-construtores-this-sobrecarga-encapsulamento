@@ -17,18 +17,24 @@ namespace src
         {
         }
 
-        
+
 
         public ContaBancaria(int numero, string titular)
         {
-            bool sair = false;
+            SetNumero(numero);
+            SetTitular(titular);
+            _saldo = 0.0;
+        }
 
+        public void SetNumero(int numero)
+        {
+            bool loop = true;
             do
             {
                 if (numero > 0)
                 {
                     _numero = numero;
-                    sair = true;
+                    loop = false;
                 }
                 else
                 {
@@ -38,15 +44,18 @@ namespace src
                         + "Atribua um novo número identificador da conta: ");
                     numero = int.Parse(Console.ReadLine());
                 }
-            } while (sair);
-            sair = false;
+            } while (loop);
+        }
 
+        public void SetTitular(string titular)
+        {
+            bool loop = true;
             do
             {
-                if (titular == "null")
+                if (titular == "" || titular.Length < 4)
                 {
                     Console.Write(Environment.NewLine
-                        + "O nome do titular não pode ser um campo vazio."
+                        + "O nome do titular deve ter pelo menos 5 caracteres."
                         + Environment.NewLine
                         + "Digite o nome do titular da conta da conta: ");
                     titular = Console.ReadLine();
@@ -54,31 +63,23 @@ namespace src
                 else
                 {
                     _titular = titular;
-                    sair = true;
+                    loop = false;
                 }
-            } while (sair);
-
-            Console.Write("Deseja fazer um depósito inicial (s/n): ");
-            if('s' == char.Parse(Console.ReadLine()))
-            {
-                Console.Write(Environment.NewLine
-                    + "Digite um valor de depósito: R$ ");
-                Deposito(double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture));
-            }
+            } while (loop);
         }
-
 
 
         public void Deposito(double valor)
         {
-            bool sair = false;
+            bool loop = true;
 
             do
             {
                 if (valor > 0.0)
                 {
                     _saldo += valor;
-                    sair = true;
+                    Console.WriteLine(Environment.NewLine + ToString());
+                    loop = false;
                 }
                 else
                 {
@@ -88,19 +89,20 @@ namespace src
                         + "Digite um valor de depósito: R$ ");
                     valor = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                 }
-            } while (sair);
+            } while (loop);
         }
 
         public void Saque(double valor)
         {
-            bool sair = false;
+            bool loop = true;
 
             do
             {
                 if (valor > 0.0)
                 {
-                    _saldo -= valor;
-                    sair = true;
+                    _saldo -= (valor + taxaSaque);
+                    Console.WriteLine(Environment.NewLine + ToString());
+                    loop = false;
                 }
                 else
                 {
@@ -110,9 +112,18 @@ namespace src
                         + "Digite um valor do saque: R$ ");
                     valor = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                 }
-            } while (sair);
+            } while (loop);
         }
-
+        
+        public override string ToString()
+        {
+            return "Conta "
+                + _numero
+                + ", Titular: "
+                + _titular
+                + ", Saldo: R$ "
+                + _saldo.ToString("F2", CultureInfo.InvariantCulture);
+        }
 
 
     }
