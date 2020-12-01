@@ -78,6 +78,7 @@ namespace src
                 if (valor > 0.0)
                 {
                     _saldo += valor;
+                    Console.WriteLine(Environment.NewLine + ToString());
                     loop = false;
                 }
                 else
@@ -100,6 +101,7 @@ namespace src
                 if (valor > 0.0)
                 {
                     _saldo -= (valor + taxaSaque);
+                    Console.WriteLine(Environment.NewLine + ToString());
                     loop = false;
                 }
                 else
@@ -120,8 +122,7 @@ namespace src
                 + ", Titular: "
                 + _titular
                 + ", Saldo: R$ "
-                + _saldo;
-
+                + _saldo.ToString("F2", CultureInfo.InvariantCulture);
         }
 
 

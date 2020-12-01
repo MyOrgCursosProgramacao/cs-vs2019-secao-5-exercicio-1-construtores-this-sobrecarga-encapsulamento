@@ -24,10 +24,18 @@ namespace src
                     + "Digite um valor de depósito: R$ ");
                 contaBancaria.Deposito(double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture));
             }
+            else
+            {
+                Console.WriteLine(Environment.NewLine + contaBancaria.ToString());
+            }
 
+            Console.Write(Environment.NewLine + "Entre um valor para depósito: R$ ");
+            double valor = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            contaBancaria.Deposito(valor);
 
+            Console.Write(Environment.NewLine + "Entre um valor para saque: R$ ");
+            valor = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            contaBancaria.Saque(valor);
         }
     }
-
-
 }
