@@ -112,7 +112,17 @@ namespace src
                 }
             } while (loop);
         }
+        
+        public override string ToString()
+        {
+            return "Conta "
+                + _numero
+                + ", Titular: "
+                + _titular
+                + ", Saldo: R$ "
+                + _saldo;
 
+        }
 
 
     }
